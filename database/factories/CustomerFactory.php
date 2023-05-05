@@ -22,7 +22,7 @@ class CustomerFactory extends Factory
             'first_name' => fake()->firstName,
             'last_name' => fake()->lastName,
             'email' => fake()->email,
-            'phone_number' => fake()->e164PhoneNumber(),
+            'phone_number' => "+98912" . fake()->regexify('[0-9]{7}'),
             'date_of_birth' => fake()->date("Y-m-d"),
             'bank_account_number' => fake()->regexify('[0-9]{12}'),
         ];
