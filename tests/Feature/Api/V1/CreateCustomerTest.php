@@ -23,7 +23,7 @@ class CreateCustomerTest extends TestCase
         $this->customer = Customer::factory()->make();
     }
 
-    public function test_a_client_can_create_post(): void
+    public function test_a_client_can_create_customer(): void
     {
         $this->postJson(route("api.v1.customers.store"), $this->customer->toArray())
             ->assertStatus(Response::HTTP_CREATED);
