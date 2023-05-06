@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
-use App\Models\Customer;
 use App\Rules\MobileNumber;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class UpdateCustomerRequest extends FormRequest

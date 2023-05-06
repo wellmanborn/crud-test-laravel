@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Api\V1;
+namespace Tests\Feature\Api\V1\Customers;
 
-use App\Models\Customer;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Src\Domains\Customer\Models\Customer;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -14,8 +14,6 @@ class UpdateCustomerTest extends TestCase
     use DatabaseMigrations;
 
     protected Customer $customer;
-    protected Customer $customer_new_data;
-
     public function __construct(string $name)
     {
         parent::__construct($name);
@@ -28,9 +26,17 @@ class UpdateCustomerTest extends TestCase
         $customer = Customer::factory()->create();
         $this->putJson(route("api.v1.customers.update", $customer->key), $this->customer->toArray())
             ->assertStatus(Response::HTTP_OK);
-        $this->getJson(route("api.v1.customers.show", $customer->key))
-            ->assertStatus(Response::HTTP_OK)
-            ->assertJson(["data" => ["first_name" => $this->customer["first_name"]]]);
+
+        $this->assertDatabaseHas(Customer::class, $this->customer->toArray());
+    }
+
+    public function test_a_client_can_update_a_specific_part_of_customer(): void
+    {
+        $customer = Customer::factory()->create();
+        $this->putJson(route("api.v1.customers.update", $customer->key), ["first_name" => "TestJohn"])
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->assertDatabaseHas(Customer::class, [...$customer->toArray(), "first_name" => "TestJohn"]);
     }
 
     public function test_a_client_cannot_update_customer_with_invalid_email(): void
@@ -49,9 +55,8 @@ class UpdateCustomerTest extends TestCase
             "email" => "test@email.com"])
             ->assertStatus(Response::HTTP_OK);
 
-        $this->getJson(route("api.v1.customers.show", $customer->key))
-            ->assertStatus(Response::HTTP_OK)
-            ->assertJson(["data" => ["first_name" => $this->customer["first_name"]]]);
+        $this->assertDatabaseHas(Customer::class, [...$this->customer->toArray(),
+            "email" => "test@email.com"]);
 
         $customer2 = Customer::factory()->create();
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Api\V1;
+namespace Tests\Feature\Api\V1\Customers;
 
-use App\Models\Customer;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Src\Domains\Customer\Models\Customer;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 

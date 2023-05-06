@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Customers;
 
-use App\Models\Customer;
+use App\Http\Resources\Api\V1\CustomerResource;
 use Illuminate\Http\JsonResponse;
+use Src\Domains\Customer\Models\Customer;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShowController
 {
-    public function __invoke(Customer $customer) : JsonResponse
+    public function __invoke(Customer $customer): JsonResponse
     {
-        return response()->json(["data" => $customer]);
+        return response()->json([
+            "data" => new CustomerResource($customer),
+            "status" => Response::HTTP_OK
+        ]);
     }
 }
