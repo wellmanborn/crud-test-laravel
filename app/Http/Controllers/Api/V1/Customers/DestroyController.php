@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1\Customers;
 use Illuminate\Http\JsonResponse;
 use Src\Domains\Customer\Commands\DestroyCustomer;
 use Src\Domains\Customer\Models\Customer;
+use Symfony\Component\HttpFoundation\Response;
 
 class DestroyController
 {

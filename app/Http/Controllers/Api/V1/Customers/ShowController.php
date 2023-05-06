@@ -14,8 +14,10 @@ class ShowController
     public function __invoke(Customer $customer): JsonResponse
     {
         return response()->json([
+            "status" => true,
             "data" => new CustomerResource($customer),
-            "status" => Response::HTTP_OK
+            "errors" => "",
+            "message" => ""
         ]);
     }
 }
