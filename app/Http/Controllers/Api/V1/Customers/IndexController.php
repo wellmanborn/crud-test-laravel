@@ -13,7 +13,7 @@ class IndexController
 {
     public function __invoke() : JsonResponse
     {
-        $customers = DB::table('customers')->paginate(10);
+        $customers = DB::table('customers')->paginate(2);
         return response()->json([
             "data" => CustomerResource::collection($customers),
             "status" => Response::HTTP_OK
