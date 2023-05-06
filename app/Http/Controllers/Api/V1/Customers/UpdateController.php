@@ -15,6 +15,6 @@ class UpdateController
     public function __invoke(UpdateCustomerRequest $request, Customer $customer) : JsonResponse
     {
         UpdateCustomer::handle(CustomerDto::update($request->validated(), $customer), $customer);
-        return response()->json(["status" => true, "data" => "", "errors" => "", "message" => ""]);
+        return response()->json(["status" => true, "data" => [], "errors" => [], "message" => ""]);
     }
 }

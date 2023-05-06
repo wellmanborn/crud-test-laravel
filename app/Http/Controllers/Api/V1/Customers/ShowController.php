@@ -16,7 +16,7 @@ class ShowController
         return response()->json([
             "status" => true,
             "data" => new CustomerResource($customer),
-            "errors" => "",
+            "errors" => [],
             "message" => ""
         ]);
     }

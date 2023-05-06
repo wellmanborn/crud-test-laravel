@@ -17,6 +17,6 @@ class CreateController
         CreateCustomer::handle(
             CustomerDto::create($request->validated())
         );
-        return response()->json(["status" => true, "data" => "", "errors" => "", "message" => ""], Response::HTTP_CREATED);
+        return response()->json(["status" => true, "data" => [], "errors" => [], "message" => ""], Response::HTTP_CREATED);
     }
 }

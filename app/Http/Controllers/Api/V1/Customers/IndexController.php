@@ -18,7 +18,7 @@ class IndexController
         return response()->json([
             "status" => true,
             "data" => CustomerResource::collection($customers),
-            "errors" => "",
+            "errors" => [],
             "message" => ""
         ]);
     }

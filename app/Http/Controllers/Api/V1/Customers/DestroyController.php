@@ -16,6 +16,6 @@ class DestroyController
 
         DestroyCustomer::handle($customer);
 
-        return response()->json(["status" => true, "data" => "", "errors" => "", "message" => ""]);
+        return response()->json(["status" => true, "data" => [], "errors" => [], "message" => ""]);
     }
 }
