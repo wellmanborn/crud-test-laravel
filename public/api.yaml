@@ -1,0 +1,232 @@
+openapi: 3.0.0
+info:
+  title: Crud Customer Test
+  description: Customer Crud test V1
+  version: 0.1.9
+  contact:
+    email: behzaad.dadashpour@gmail.com
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Version 1
+
+paths:
+  /customers:
+    get:
+      tags:
+        - customer
+      summary: Show customers list
+      responses:
+        '200':
+          description: Information about customers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomersList'
+    post:
+      tags:
+        - customer
+      summary: Creates new customer
+      requestBody:
+        description: Create a new customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+        required: true
+      responses:
+        '200':
+          description: Information about creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /customers/{Key}:
+    get:
+      tags:
+        - customer
+      summary: Show specific customer
+      responses:
+        '200':
+          description: Information about customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    put:
+      tags:
+        - customer
+      summary: Update a specific customer
+      parameters:
+        - name: Key
+          in: path
+          description: Customer Key to Update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update a specific customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+        required: true
+      responses:
+        '200':
+          description: Information about update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+    delete:
+      tags:
+        - customer
+      summary: delete a specific customer
+      parameters:
+        - name: Key
+          in: path
+          description: Customer Key to Delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Information about delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+
+
+components:
+  schemas:
+    CustomerInput:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: John
+          maxLength: 50
+          description: first name, last name and date of birth must be unique
+          required: true
+        last_name:
+          type: string
+          example: Doe
+          maxLength: 50
+          description: first name, last name and date of birth must be unique
+          required: true
+        email:
+          type: string
+          format: email
+          example: user@example.com
+          description: email must be unique
+          required: true
+        phone_number:
+          type: string
+          format: mobile
+          description: must be a valid mobile number
+          example: "+989123456789"
+          pattern: /\+[0-9]+/
+          required: true
+        date_of_birth:
+          type: string
+          format: date
+          pattern: /\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])+/
+          example: 1988-02-18
+          description: first name, last name and date of birth must be unique
+          required: true
+        bank_account_number:
+          type: string
+          example: 8800001234588
+          required: true
+    Response:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+          description: on success return true
+        data:
+          type: object
+          example: {"first_name": "John"}
+          description: response data goes here
+        message:
+          type: string
+          example: there was an error in inserting data
+          description: show messages on success or failed
+        error:
+          type: object
+          example: "{
+            \"date_of_birth\": [
+              \"Combination of date of birth & first name & host name is not unique\"
+            ]
+          }"
+    CustomersList:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+          description: on success return true
+        data:
+          type: object
+          example: '[
+                      {
+                          "id": "764babd8-9834-47b9-b906-5c82d5a1c005",
+                          "type": "customer",
+                          "attributes": {
+                              "first_name": "Emmett",
+                              "last_name": "Lubowitz",
+                              "email": "hill.major@oreilly.com",
+                              "phone_number": 989128797299,
+                              "date_of_birth": "2004-09-25",
+                              "bank_account_number": "265353015064"
+                          },
+                          "links": {
+                              "self": "http://127.0.0.1:8000/api/v1/customers/764babd8-9834-47b9-b906-5c82d5a1c005",
+                              "parent": "http://127.0.0.1:8000/api/v1/customers"
+                          }
+                      }]'
+          description: response data goes here
+        message:
+          type: string
+          example: ""
+          description: show messages on success or failed
+        error:
+          type: object
+          example: {}
+    Customer:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+          description: on success return true
+        data:
+          type: object
+          example: '{
+                          "id": "764babd8-9834-47b9-b906-5c82d5a1c005",
+                          "type": "customer",
+                          "attributes": {
+                              "first_name": "Emmett",
+                              "last_name": "Lubowitz",
+                              "email": "hill.major@oreilly.com",
+                              "phone_number": 989128797299,
+                              "date_of_birth": "2004-09-25",
+                              "bank_account_number": "265353015064"
+                          },
+                          "links": {
+                              "self": "http://127.0.0.1:8000/api/v1/customers/764babd8-9834-47b9-b906-5c82d5a1c005",
+                              "parent": "http://127.0.0.1:8000/api/v1/customers"
+                          }
+                      }'
+          description: response data goes here
+        message:
+          type: string
+          example: ""
+          description: show messages on success or failed
+        error:
+          type: object
+          example: { }
