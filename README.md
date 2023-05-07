@@ -46,3 +46,37 @@ Customer {
 - Web UI.
 - Swagger
 
+-----------------------------------------------
+
+**for running database using docker-composer**
+
+```
+docker-compose --f docker-compose.yml up
+```
+
+**for database migration**
+
+```
+php artisan migrate --seed 
+```
+
+**for test**
+
+```
+php artisan test
+```
+
+**to view API document using Swagger**
+
+```
+npm run dev
+php artisan serve
+```
+
+and in browser: http://localhost:8000/swagger
+
+**to test using codeception**
+
+```
+php vendor/bin/codecept run
+```
