@@ -32,4 +32,9 @@ class Customer extends Model
         return CustomerFactory::new();
     }
 
+    public function getFullNameAttribute(): string
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
+
 }

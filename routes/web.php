@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/customers', [CustomerController::class, "index"])->name("customers.index");
+Route::get('/customers/create', [CustomerController::class, "create"])->name("customers.create");
+Route::get('/customers/{customer}', [CustomerController::class, "show"])->name("customers.show");
+Route::post('/customers', [CustomerController::class, "store"])->name("customers.store");
+Route::get('/customers/{customer}/edit', [CustomerController::class, "edit"])->name("customers.edit");
+Route::put('/customers/{customer}', [CustomerController::class, "update"])->name("customers.update");
+Route::delete('/customers/{customer}', [CustomerController::class, "delete"])->name("customers.delete");
 Route::view('/swagger', 'swagger');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
